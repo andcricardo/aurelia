@@ -384,7 +384,8 @@ describe('template-compiler.harmony.spec.ts \n\tharmoninous combination', functi
         // example:       for GMT+11
         // when enter:    input.valueAsNumber = new Date(2021, 01, 14)
         // will display:  13/02/2021
-        const actualReturnedTimeInMs = new Date(input.value).getTime();
+        const dateParts = input.value.split('-').map(v => Number(v)) as [number, number, number];
+        const actualReturnedTimeInMs = new Date(...dateParts).getTime();
         input.valueAsNumber = todayInMs;
         input.dispatchEvent(new ctx.CustomEvent('change'));
         assert.strictEqual(input.valueAsNumber, actualReturnedTimeInMs, 'input[type=date].valueAsNumber === today_in_ms');
